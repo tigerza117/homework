@@ -8,7 +8,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/cc289add7d.js" crossorigin="anonymous"></script>
@@ -16,6 +17,25 @@
 </head>
 
 <script>
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            finish(myArr);
+        }
+    };
+    xmlhttp.open("GET", "https://panjs.com/ywc.json", true);
+    xmlhttp.send();
+
+    function finish(data) {
+        data['navbarItems'].forEach(function(navbarItem) {
+            document.getElementById("navbarItems").innerHTML += '<a class="nav-item nav-link" href="' + navbarItem.href + '">' + navbarItem.label + '</a';
+        });
+        document.getElementById("duration").innerHTML += data.duration;
+        document.getElementById("detail").innerHTML += data.detail;
+        document.getElementById("condition").innerHTML += data.condition;
+    }
 </script>
 
 <body>
@@ -25,13 +45,10 @@
                 <img src="img/logo/footer.png" width="35" height="48" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Menu" aria-controls="Menu" aria-expanded="true" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse ml-auto" id="Menu">
-                <div class="navbar-nav mx-auto order-0">
-                    <a class="nav-item nav-link" href="#">ลงทะเบียนเข้าร่วมมาตรการ</a>
-                    <a class="nav-item nav-link" href="#">ขั้นตอนการเข้าร่วม</a>
-                    <a class="nav-item nav-link" href="#">ร้านค้าที่เข้าร่วม</a>
+                <div class="navbar-nav mx-auto order-0" id='navbarItems'>
                 </div>
             </div>
         </nav>
@@ -54,7 +71,7 @@
 
     <div class="register">
         <strong>ตั้งแต่วันที่</strong>
-        <div class="red-title">27 ก.ย. - 31 ธ.ค. 62</div>
+        <div class="red-title" id="duration"></div>
         <a href="https://regist.xn--b3caa1e2a7e2b0h2be.com/Register/" target="_blank">
             <button class="btn btn-register">ลงทะเบียน เฟส 2<br>ตั้งแต่วันที่ 24 ต.ค.62 วันละ 2 รอบเวลา 6.00 และ 18.00 น.<br>(จำกัดจำนวนผู้ละทะเบียนรอบละ 5 แสนคน รวม 1 ล้านคนต่อวัน)</button>
             <hr>
@@ -64,9 +81,9 @@
         <div class="container">
             <div class="red-title d-sm-none">มาตรการส่งเสริมการบริโภคในประเทศ <span class="nowrap">“ชิมช้อปใช้”</span></div>
             <div class="red-title d-none d-sm-block">มาตรการส่งเสริมการบริโภค<br>ในประเทศ “ชิมช้อปใช้”</div>
-            <p class="mt-4">ผู้สนใจเข้าร่วมมาตรการส่งเสริมการบริโภคในประเทศ <span class="nowrap">“ชิมช้อปใช้”</span> รับเงินผ่าน <span class="nowrap">“เป๋าตัง”</span> <span class="nowrap">(G-Wallet)</span> รวมจำนวน 13 ล้านคน ลงทะเบียนรับสิทธิ ได้ทางเว็บไซต์ <span class="nowrap">www.ชิมช้อปใช้.com</span>                <br> ตั้งแต่วันที่ 23 กันยายน - 15 พฤศจิกายน 2562 (รับลงทะเบียน เฟส 2 ตั้งแต่วันที่ 24 ตุลาคม 2562 จำกัดจำนวนผู้ลงทะเบียน 1 ล้านคนต่อวัน จนกว่าจะครบ 3 ล้านคน)</p>
+            <p class="mt-4" id="detail"></p>
             <strong>เงื่อนไขการเข้าร่วมมาตรการ</strong>
-            <p class="mt-2">1. เป็นบุคคลสัญชาติไทย มีบัตรประจำตัวประชาชน<br>2. มีอายุตั้งแต่ 18 ปีบริบูรณ์ขึ้นไป ณ วันที่ลงทะเบียน<br>3. มีโทรศัพท์มือถือสมาร์ทโฟนที่สามารถเชื่อมต่อสัญญาณอินเทอร์เน็ตและมีอีเมล</p>
+            <p class="mt-2" id="condition"></p>
         </div>
 
     </div>

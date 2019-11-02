@@ -113,7 +113,7 @@ footer .second {
     color: white;
     font-size: 14px;
     font-family: TATSanaSuksaBold;
-    padding-top: 8px;
+    padding: 8px 16px;
 }
 
 @media (max-width: 577px) {}
