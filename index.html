@@ -13,6 +13,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!--Fontawesome import-->
     <script src="https://kit.fontawesome.com/cc289add7d.js" crossorigin="anonymous"></script>
+    <!--XssFilter import-->
+    <script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
     <!--Main-->
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 </head>
@@ -31,11 +33,11 @@
 
     function finish(data) {
         data['navbarItems'].forEach(function(navbarItem) {
-            document.getElementById("navbarItems").innerHTML += '<a class="nav-item nav-link" href="' + navbarItem.href + '">' + navbarItem.label + '</a';
+            document.getElementById("navbarItems").innerHTML += '<a class="nav-item nav-link" href="' + filterXSS(navbarItem.href) + '">' + filterXSS(navbarItem.label) + '</a';
         });
-        document.getElementById("duration").innerHTML += data.duration;
-        document.getElementById("detail").innerHTML += data.detail;
-        document.getElementById("condition").innerHTML += data.condition;
+        document.getElementById("duration").innerHTML += filterXSS(data.duration);
+        document.getElementById("detail").innerHTML += filterXSS(data.detail);
+        document.getElementById("condition").innerHTML += filterXSS(data.condition);
     }
 </script>
 
